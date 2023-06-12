@@ -2,6 +2,8 @@
 
 Tua is a mobile payments application built with Flutter that allows users to easily initiate money transfers from India to the USA. It provides a simple and convenient way for individuals and businesses to send money securely.
 
+![slide1](https://github.com/singhpratham72/tua/blob/2d161d2afac9280d9acc28e27b46e3a0c6d86031/tua_slide.jpg)
+
 ## Features
 Before using the Tua app, make sure to have the `tua-backend` server running locally or at a remote location. The backend server provides the necessary API endpoints to register and manage bank transfers.
 
