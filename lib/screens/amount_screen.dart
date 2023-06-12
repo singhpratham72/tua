@@ -31,7 +31,6 @@ class _AmountScreenState extends State<AmountScreen> {
   }
 
   void _submitAmount() async {
-    
     if (!error) {
       int amount = int.parse(_amountController.value.text.replaceAll(',', ''));
       FocusManager.instance.primaryFocus?.unfocus();
@@ -53,7 +52,8 @@ class _AmountScreenState extends State<AmountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).viewPadding.top;
     return Scaffold(
       body: SafeArea(
         child: Padding(

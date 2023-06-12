@@ -92,7 +92,8 @@ class _BeneficaryDetailsScreenState extends State<BeneficaryDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height - 20.0;
+    double height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).viewPadding.top;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
