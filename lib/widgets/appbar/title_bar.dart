@@ -21,10 +21,12 @@ class TitleBar extends StatelessWidget {
             },
             child: const Icon(Icons.arrow_back),
           ),
-          Text(
-            label ?? '',
-            overflow: TextOverflow.ellipsis,
-            style: TextStyles.h2,
+          Flexible(
+            child: Text(
+              label ?? '',
+              overflow: TextOverflow.ellipsis,
+              style: TextStyles.h2,
+            ),
           ),
           const Padding(
             padding: EdgeInsets.only(right: 0.0),
