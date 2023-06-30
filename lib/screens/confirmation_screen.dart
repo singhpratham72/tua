@@ -7,6 +7,7 @@ import 'package:tua/constants/textstyles.dart';
 import 'package:tua/cubit/transfer_cubit/transfer_cubit.dart';
 import 'package:tua/models/transfer_model.dart';
 import 'package:tua/screens/landing_screen.dart';
+import 'package:tua/utils.dart';
 import 'package:tua/widgets/custom_button.dart';
 
 class ConfirmationScreen extends StatefulWidget {
@@ -77,7 +78,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     ),
                     const SizedBox(height: 32.0),
                     Text(
-                      '\$${result?.amount.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                      '\$ ${result?.amount.formatCurrency() ?? ''}',
                       style: TextStyles.h1.copyWith(fontSize: 36.0),
                     ),
                     const SizedBox(height: 32.0),

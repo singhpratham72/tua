@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:tua/constants/textstyles.dart';
 import 'package:tua/cubit/transfer_cubit/transfer_cubit.dart';
 import 'package:tua/models/transfer_model.dart';
 import 'package:tua/screens/confirmation_screen.dart';
 import 'package:tua/services/navigation_helper.dart';
+import 'package:tua/utils.dart';
 import 'package:tua/widgets/appbar/title_bar.dart';
 import 'package:tua/widgets/custom_button.dart';
 import 'package:tua/widgets/amount_textfield.dart';
@@ -21,6 +23,7 @@ class _AmountScreenState extends State<AmountScreen> {
   final TextEditingController _amountController = TextEditingController();
   Transfer? transfer;
   bool error = true;
+  var format = NumberFormat.currency(locale: 'HI');
 
   @override
   void initState() {
@@ -110,17 +113,20 @@ class _AmountScreenState extends State<AmountScreen> {
                           });
                         } else {
                           // Insert commas
-                          _amountController.text = _amountController.text
-                              .replaceAllMapped(
-                                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  (Match m) => '${m[1]},');
+                          // _amountController.text = _amountController.text
+                          //     .replaceAllMapped(
+                          //         RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                          //         (Match m) => '${m[1]},');
+                          // _amountController.selection =
+                          //     TextSelection.fromPosition(TextPosition(
+                          //         offset: _amountController.text.length));
+
+                          // Check if amount is between valid range
+                          int amount = int.parse(_amountController.text);
+                          _amountController.text = amount.formatCurrency();
                           _amountController.selection =
                               TextSelection.fromPosition(TextPosition(
                                   offset: _amountController.text.length));
-
-                          // Check if amount is between valid range
-                          int amount = int.parse(
-                              _amountController.value.text.replaceAll(',', ''));
                           if (amount < 100 || amount > 25000) {
                             setState(() {
                               error = true;
