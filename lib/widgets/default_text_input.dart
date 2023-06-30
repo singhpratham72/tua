@@ -15,7 +15,8 @@ class DefaultTextInput extends StatelessWidget {
       this.onTap,
       this.readOnly = false,
       this.validator,
-      this.inputFormatters})
+      this.inputFormatters,
+      this.textCapitalization})
       : super(key: key);
 
   final TextEditingController controller;
@@ -28,6 +29,7 @@ class DefaultTextInput extends StatelessWidget {
   final bool readOnly;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
+  final TextCapitalization? textCapitalization;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,6 +46,7 @@ class DefaultTextInput extends StatelessWidget {
         maxLines: maxLines,
         maxLength: maxLength,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
+        textCapitalization: textCapitalization ?? TextCapitalization.none,
         autocorrect: false,
         controller: controller,
         obscureText: obscureText,

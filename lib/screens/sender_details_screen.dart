@@ -50,22 +50,21 @@ class _SenderDetailsScreenState extends State<SenderDetailsScreen> {
     if (value?.isEmpty ?? true) {
       return 'Please enter a phone number';
     }
-    final cleanPhoneNumber = value?.replaceAll(RegExp(r'[^0-9]'), '');
 
-    if (cleanPhoneNumber?.length != 10) {
+    if (value?.length != 10) {
       return 'Please enter a 10-digit phone number';
     }
     return null;
   }
 
-  String? _validateAadhaarNumber(String? value) {
+  String? _validatePANNumber(String? value) {
     if (value?.isEmpty ?? true) {
-      return 'Please enter your Aadhaar number';
+      return 'Please enter your PAN number';
     }
-    final cleanPhoneNumber = value?.replaceAll(RegExp(r'[^0-9]'), '');
+    final panRegex = RegExp(r'[A-Z]{3}[PCHABGJLFT]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}');
 
-    if (cleanPhoneNumber?.length != 12) {
-      return 'Please enter your 12-digit Aadhaar number';
+    if (value?.length != 10 || !panRegex.hasMatch(value ?? '')) {
+      return 'Please enter a valid 10-digit PAN number';
     }
     return null;
   }
@@ -118,6 +117,7 @@ class _SenderDetailsScreenState extends State<SenderDetailsScreen> {
                     DefaultTextInput(
                       labelText: 'Full Name',
                       controller: _nameController,
+                      textCapitalization: TextCapitalization.words,
                       keyboardType: TextInputType.name,
                       validator: (String? value) {
                         if (value?.isEmpty ?? true) {
@@ -141,16 +141,20 @@ class _SenderDetailsScreenState extends State<SenderDetailsScreen> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     ),
                     DefaultTextInput(
-                      labelText: 'Aadhaar Number',
+                      labelText: 'PAN Number',
                       controller: _idNumberController,
-                      keyboardType: TextInputType.number,
-                      validator: _validateAadhaarNumber,
-                      maxLength: 12,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.characters,
+                      validator: _validatePANNumber,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp('[A-Z0-9]'))
+                      ],
+                      maxLength: 10,
                     ),
                     DefaultTextInput(
                       labelText: 'Address',
                       controller: _addressController,
+                      textCapitalization: TextCapitalization.words,
                       keyboardType: TextInputType.streetAddress,
                       validator: (String? value) {
                         if (value?.isEmpty ?? true) {
